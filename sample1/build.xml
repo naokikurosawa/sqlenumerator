@@ -1,0 +1,84 @@
+<project name="sample1" basedir="../../" default="doit">
+
+	<taskdef name="enumfiles" classname="sqlenumerator.EnumFiles"/>
+	<taskdef name="sampletask" classname="sqlenumerator.SampleTask"/>
+	<taskdef name="sqlclients" classname="sqlenumerator.SqlClients"/>
+	<taskdef name="mappers" classname="sqlenumerator.Mappers"/>
+	<taskdef name="contextfiles" classname="sqlenumerator.ContextFiles"/>
+	<taskdef name="sqlclientusage" classname="sqlenumerator.SqlClientUsages"/>
+
+	<target name="sqlclients">
+		<!-- echo message="hoge"/ -->
+		<!-- sampletask message="moge!"/ -->
+		<sqlclients outfile="sqlclient.csv">
+			<fileset dir="${basedir}" includes="batch*/**/*SqlClient.xml">
+				<exclude name="batch*/build/**"/>
+				<exclude name="**/DummySqlClient.xml"/>
+			</fileset>
+			
+		</sqlclients>
+	</target>
+
+	<target name="contextfiles">
+		<!-- echo message="hoge"/ -->
+		<!-- sampletask message="moge!"/ -->
+		<contextfiles outfile="context.csv">
+			<fileset dir="${basedir}" includes="batch*/**/launch*context.xml">
+				<exclude name="batch*/build/**"/>
+			</fileset>
+			
+		</contextfiles>
+	</target>
+
+	<target name="mappers">
+		<!-- echo message="hoge"/ -->
+		<!-- sampletask message="moge!"/ -->
+		<mappers outfile="mapper.csv">
+			<fileset dir="${basedir}" includes="batch*/**/*Mapper.xml">
+				<exclude name="batch*/build/**"/>
+			</fileset>
+		</mappers>
+	</target>
+
+		
+	<target name="enumcontextfiles">
+		<enumfiles outfile="context-files.txt">
+			<fileset dir="${basedir}" includes="batch*/**/launch*context.xml">
+				<exclude name="batch*/build/**"/>
+			</fileset>
+		</enumfiles>
+	</target>
+
+	<target name="enumsqlclientfiles">
+		<enumfiles outfile="sqlclient-files.txt">
+			<fileset dir="${basedir}" includes="batch*/**/*SqlClient.xml">
+				<exclude name="batch*/build/**"/>
+				<exclude name="**/DummySqlClient.xml"/>
+			</fileset>
+		</enumfiles>
+	</target>
+
+	<target name="enummapperfiles">
+		<enumfiles outfile="mapper-files.txt">
+			<fileset dir="${basedir}" includes="batch*/**/*Mapper.xml">
+				<exclude name="batch*/build/**"/>
+			</fileset>
+		</enumfiles>
+	</target>
+	
+	<target name="enumjavafiles">
+		<enumfiles outfile="java-files.txt">
+			<fileset dir="${basedir}" includes="batch*/**/*.java">
+				<exclude name="batch*/build/**"/>
+			</fileset>
+		</enumfiles>
+	</target>
+
+	<target name="doit">
+		<sqlclientusage outfile="sqlclient-usage.csv" sqllist="sqlclient0311.csv">
+			<fileset dir="${basedir}" includes="batch*/**/*.java">
+				<exclude name="batch*/build/**"/>
+			</fileset>
+		</sqlclientusage>
+	</target>
+</project>
